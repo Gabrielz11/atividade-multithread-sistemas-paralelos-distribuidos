@@ -1,3 +1,4 @@
+
 /**
  * ============================================================
  *   CLIENTE DO SERVIDOR DE CÁLCULO DISTRIBUÍDO
@@ -20,14 +21,13 @@ import java.util.Scanner;
 public class Cliente {
 
     // ─────────────────────────────────────────────
-    //  CONFIGURAÇÕES DE CONEXÃO
+    // CONFIGURAÇÕES DE CONEXÃO
     // ─────────────────────────────────────────────
-    private static final String HOST  = "127.0.0.1"; // IP do servidor
-    private static final int    PORTA = 65432;        // Porta do servidor
-
+    private static final String HOST = "192.168.100.2"; // IP do servidor
+    private static final int PORTA = 65432; // Porta do servidor
 
     // ─────────────────────────────────────────────
-    //  MÉTODO PRINCIPAL
+    // MÉTODO PRINCIPAL
     // ─────────────────────────────────────────────
     public static void main(String[] args) {
 
@@ -37,22 +37,19 @@ public class Cliente {
         System.out.println("  Conectando em " + HOST + ":" + PORTA + "...");
 
         try (
-            // Cria o socket e conecta ao servidor
-            Socket socket = new Socket(HOST, PORTA);
+                // Cria o socket e conecta ao servidor
+                Socket socket = new Socket(HOST, PORTA);
 
-            // PrintWriter envia texto ao servidor (autoFlush = true)
-            PrintWriter saida = new PrintWriter(
-                new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true
-            );
+                // PrintWriter envia texto ao servidor (autoFlush = true)
+                PrintWriter saida = new PrintWriter(
+                        new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
 
-            // BufferedReader lê a resposta do servidor
-            BufferedReader entrada = new BufferedReader(
-                new InputStreamReader(socket.getInputStream(), "UTF-8")
-            );
+                // BufferedReader lê a resposta do servidor
+                BufferedReader entrada = new BufferedReader(
+                        new InputStreamReader(socket.getInputStream(), "UTF-8"));
 
-            // Scanner lê o que o usuário digita no terminal
-            Scanner teclado = new Scanner(System.in)
-        ) {
+                // Scanner lê o que o usuário digita no terminal
+                Scanner teclado = new Scanner(System.in)) {
             System.out.println("  Conectado com sucesso!");
             System.out.println("==================================================");
             System.out.println("  Digite uma operacao matematica e pressione Enter.");
@@ -66,7 +63,7 @@ public class Cliente {
 
                 // Encerra se o usuário digitar sair
                 if (operacao.equalsIgnoreCase("sair") ||
-                    operacao.equalsIgnoreCase("exit")) {
+                        operacao.equalsIgnoreCase("exit")) {
                     System.out.println("  Encerrando conexao...");
                     break;
                 }
