@@ -23,7 +23,7 @@ public class Cliente {
     // ─────────────────────────────────────────────
     // CONFIGURAÇÕES DE CONEXÃO
     // ─────────────────────────────────────────────
-    private static final String HOST = "192.168.100.2"; // IP do servidor
+    private static String HOST = "192.168.100.2"; // IP do servidor
     private static final int PORTA = 65432; // Porta do servidor
 
     // ─────────────────────────────────────────────

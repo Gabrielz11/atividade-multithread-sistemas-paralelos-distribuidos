@@ -7,19 +7,18 @@ import java.util.concurrent.atomic.AtomicIntegerArray;
 
 public class TesteMultithread {
 
-    private static final String HOST = "127.0.0.1";
+    private static String HOST = "192.168.100.2"; 
     private static final int PORTA = 65432;
     private static final int QUANTIDADE_CLIENTES = 15;
-    private static final Random random = new Random();
 
     private static final AtomicIntegerArray progressoStatus = new AtomicIntegerArray(QUANTIDADE_CLIENTES);
     private static final String[] resultadosFinais = new String[QUANTIDADE_CLIENTES];
     private static final boolean[] finalizado = new boolean[QUANTIDADE_CLIENTES];
     
-    // Matrizes para Log Detalhado
     private static final long[] startTimes = new long[QUANTIDADE_CLIENTES];
     private static final long[] endTimes = new long[QUANTIDADE_CLIENTES];
     private static final String[] clientInfo = new String[QUANTIDADE_CLIENTES];
+    private static final Random random = new Random();
 
     public static void main(String[] args) throws InterruptedException {
         System.out.println("\033[H\033[2J");
@@ -62,7 +61,6 @@ public class TesteMultithread {
     }
 
     private static void executarFluxo(int id) {
-        // Gera conta aleatória
         int n1 = random.nextInt(50) + 1;
         int n2 = random.nextInt(50) + 1;
         char[] ops = {'+', '-', '*', '/'};
@@ -88,7 +86,7 @@ public class TesteMultithread {
             endTimes[id] = System.nanoTime();
             
             progressoStatus.set(id, 100);
-            resultadosFinais[id] = String.format("%s -> Resp: %s", expressao, resposta);
+            resultadosFinais[id] = String.format("%-10s -> Resp: %s", expressao, resposta);
             
         } catch (Exception e) {
             progressoStatus.set(id, -1);
@@ -104,7 +102,7 @@ public class TesteMultithread {
         for (int i = 0; i < QUANTIDADE_CLIENTES; i++) {
             int p = progressoStatus.get(i);
             String barra = montarBarra(p);
-            String res = (p == 100) ? resultadosFinais[i] : (p == -1) ? "FALHA" : "Em execução...";
+            String res = (p == 100) ? resultadosFinais[i] : (p == -1) ? "FALHA" : "Aguardando...";
             System.out.printf("  [Thread-%02d] %s %3d%% | %s%n", (i+1), barra, (p == -1 ? 0 : p), res);
         }
         System.out.format("\033[%dA", QUANTIDADE_CLIENTES);
@@ -160,8 +158,3 @@ public class TesteMultithread {
         }
     }
 }
-
-
-
-
-
